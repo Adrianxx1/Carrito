@@ -1,7 +1,7 @@
 // variables para referenciar a objetos del documeto
 const carrito = document.querySelector('#carrito');
 const listaCursos = document.querySelector('#lista-cursos');
-const contenedorCarrito = document.querySelector('#lista-curso tbody');
+const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
 
 let listadoCarrito = [];
@@ -25,6 +25,29 @@ const agregarCurso = (e) => {
 const agregarCarrito = curso =>{ 
     listadoCarrito = [...listadoCarrito, curso]
     console.log(listadoCarrito);
+    generaHTML();
+}
+
+const generaHTML = () => {
+    vaciarCarrito();
+    listadoCarrito.forEach(curso => {
+        const row = document.createElement('tr');
+        const cursoHTML = `
+        <td>
+            <img src="${curso.imagen}= width=100>
+        </td>
+        <td>${curso.nombre}</td>
+        <td>${curso.precio}</td>
+        <td>${curso.cantidad}</td>
+        `;
+        row.innerHTML = cursoHTML;
+        contenedorCarrito.appendChild(row);
+    }); 
+}
+
+const vaciarCarrito = () => {
+    contenedorCarrito.innerHTML = '';
+
 }
 
 const cargarEventListener = () => {
